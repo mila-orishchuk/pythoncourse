@@ -36,6 +36,7 @@ def litera():
     print(end = "\n")
     
     '''Letter H'''
+    
     i = 0
     while i < 5:
         if i == 2:
