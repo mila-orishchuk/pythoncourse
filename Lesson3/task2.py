@@ -10,15 +10,15 @@ def phone_number():
 
     number = input('Enter your phone number: ')
 
-    if number.isnumeric():
+    if not number.isnumeric():
+        print('Phone number must contian only numbers')
 
-        if len(number) != 10:
-            print('Please check your phone number')
-        
-        else:
-            print('Thank you! Number is valid')
+    elif len(number) != 10:
+        print('Please check your phone number')
+    
     else:
-        print('You enter invalid number')
+        print('Thank you! Number is valid')
+
 
 if __name__ == '__main__':
     phone_number()
