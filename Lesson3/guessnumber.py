@@ -7,10 +7,9 @@ Guess number between 1 and 100
 
 import random
 
-def guess_number(
-    numberGuess = random.randint(1,100),
-    userGuess = 0):
+def guess_number(    userGuess = 0):
 
+    numberGuess = random.randint(1,100)
     while userGuess != numberGuess:
 
         userGuess = int(input("Guess number between 1 and 100: ")) 
