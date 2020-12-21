@@ -44,17 +44,32 @@ random ariphmetic
 import random
 import operator
 
-def random_math():   
+def random_math(success = 5): 
 
-    a = random.randint(1,20)
-    b = random.randint(1,20) 
+    while success > 0:  
 
-    operators = [operator.add, operator.sub, operator.mul, operator.truediv]
-    random_operator = random.choice(operators)
+        a = random.randint(1,20)
+        b = random.randint(1,20) 
 
-    result = random_operator(a, b)
+        random_operator = random.choice(['+', '-', '*'])
 
-    print(a, random_operator, b, '=', result)
+ #       result = random_operator(a, b)
+
+        print(a, random_operator, b, '= ?')
+
+        userInput = input()
+        if random_operator == "+":
+            result = a + b
+        elif random_operator == "-":
+            result = a - b
+        elif random_operator == "*":
+            result = a * b
+        if str(result) == userInput:
+            success += 1
+        else:
+            success = 0
+        print('try again')
+
 
 if __name__ == '__main__':
     random_math()
