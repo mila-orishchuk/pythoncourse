@@ -10,27 +10,28 @@ Phone number
 
 '''
 
-def validNumber():
+def validNumber(phone):
 
-    phone_number = input('Enter your phone number:')
-    phone_number = phone_number.replace(' ', '').replace('+38', '')
     operators = ['063', '093', '050']
     
-    if not phone_number.isnumeric():
-        print('Phone number must contian only numbers')
+    if not phone.isnumeric():
+        return('Phone number must contian only numbers')
 
-    elif len(phone_number) != 10: 
-        print('Wrong length number')
+    elif len(phone) != 10: 
+        return('Wrong length number')
 
-    elif phone_number[0:3] not in operators:
-        print('Unknown operator')
+    elif phone[0:3] not in operators:
+        return('Unknown operator')
 
     else:
-        print('Number is correct')
-        
-if __name__ == '__main__':
-    validNumber()
+        return('Number is correct')
 
+phone_number = input('Enter your phone number:')
+phone_number = phone_number.replace(' ', '').replace('+38', '')
+
+    
+if __name__ == '__main__':
+    print(validNumber(phone_number))
 
 
 
@@ -50,14 +51,13 @@ def random_math(success = 5):
 
         a = random.randint(1,20)
         b = random.randint(1,20) 
-
+        a,b = (b,a) if a < b else (a,b)
         random_operator = random.choice(['+', '-', '*'])
-
- #       result = random_operator(a, b)
 
         print(a, random_operator, b, '= ?')
 
         userInput = input()
+
         if random_operator == "+":
             result = a + b
         elif random_operator == "-":
@@ -68,7 +68,7 @@ def random_math(success = 5):
             success += 1
         else:
             success = 0
-        print('try again')
+            print('try again')
 
 
 if __name__ == '__main__':
@@ -85,7 +85,7 @@ Palindrome
 
 def IsPalindrome():
 
-    string = str(input())
+    string = str(input()).lower().strip()
     rev_string = string[::-1]
 
     if string == rev_string:
