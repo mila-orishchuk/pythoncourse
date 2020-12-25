@@ -14,10 +14,10 @@ def get_user_number(msg = 'enter number'):
         print('Must contian only numbers') 
         
 
-def guess_number(number):
+def guess_number():
     numberGuess = random.randint(1,10)
     while True: 
-        userGuess = number("Guess number between 1 and 10: ")
+        userGuess = get_user_number("Guess number between 1 and 10: ")
 
         if userGuess == numberGuess:
             print(f'You win! The guessed number is {userGuess}')
@@ -28,4 +28,4 @@ def guess_number(number):
             print(f'The Number smaller than {userGuess}')
 
 if __name__ == '__main__':
-    guess_number(get_user_number)
+    guess_number()

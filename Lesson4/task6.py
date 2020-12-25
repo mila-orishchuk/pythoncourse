@@ -4,15 +4,14 @@ tasks
 
 '''
 
-while True:
-    number = int(input('Enter number: '))
-    for i in range(number):
-        if not i % 18 == 0 and not (50 <= i <= 80):
-            if i == 42:
-                print('Потому что')
-            else:
-                print(i)
-    break
+number = int(input('Enter number: '))
+for i in range(number):
+    if not i % 18 == 0 and not (50 <= i <= 80):
+        if i == 42:
+            print('Потому что')
+        else:
+            print(i)
+
 '''
 
 '''
