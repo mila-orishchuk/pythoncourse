@@ -14,23 +14,21 @@ def total_price(stock, prices):
             
     return total_price
 
-if __name__ == '__main__':
+stock = {
+    "banana": 6,
+    "apple": 0,
+    "orange": 32,
+    "pear": 15
+}
 
-    stock = {
-        "banana": 6,
-        "apple": 0,
-        "orange": 32,
-        "pear": 15
-    }
+prices = {
+    "banana": 4,
+    "apple": 2,
+    "orange": 1.5,
+    "pear": 3
+}
 
-    prices = {
-        "banana": 4,
-        "apple": 2,
-        "orange": 1.5,
-        "pear": 3
-    }
-
-    total_stock_price = total_price(stock, prices)
-    print(f'Total price of stock: {total_stock_price}')
+total_stock_price = total_price(stock, prices)
+print(f'Total price of stock: {total_stock_price}')
 
     
