@@ -6,7 +6,6 @@
 
 
 days_of_week = {
-
     1: 'Monday',
     2: 'Tuesday',
     3: 'Wednesday',
@@ -14,7 +13,6 @@ days_of_week = {
     5: 'Friday',
     6: 'Saturday',
     7: 'Sunday'
-
 }
 
 days_of_week = {value: key for key, value in days_of_week.items()}
