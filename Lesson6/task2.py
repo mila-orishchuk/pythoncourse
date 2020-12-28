@@ -10,6 +10,7 @@ def total_price(stock, prices):
 	for key in stock:
 		if key in prices:
 			total_price += stock[key] * prices[key]
+            
 	return total_price
 
 if __name__ == '__main__':
@@ -19,6 +20,7 @@ if __name__ == '__main__':
         "orange": 32,
         "pear": 15
     }
+
     prices = {
         "banana": 4,
         "apple": 2,
