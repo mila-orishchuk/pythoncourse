@@ -17,53 +17,86 @@ def generate_deck():
     random.shuffle(deck)
     return deck
 
-hand = { 
-    'computer': [],
-    'human': []
-}
-
-def get_sum(player):
+def get_sum(hand):
     score = 0
-    for card in hand[player]:
-        score += card['cost']
+    # print(hand)
+    for card in hand:
+        try:
+            score += card['cost']
+        except:
+            print(card)
     return score
 
-def deal(deck, player, num_cards):    
-    for i in range(0, num_cards):
-        hand[player].append(deck.pop())
+def deal(deck: list, hand: list, num_cards: int):
+    for i in range(num_cards):
+        hand.append(deck.pop())
 
-def print_hand(player):
-    for card in hand[player]:
+    return (deck, hand)
+
+def print_hand(hand):
+    for card in hand:
         print(f"{card['suit']} {card['value']}")
-    print(get_sum(player))
+    print(get_sum(hand))
 
+def check_win(hand) -> bool:
+    sum_score = get_sum(hand)
 
+    return len(hand) == 2 and sum_score == 22 or sum_score == 21
+    
 def game_end(score):
 	print(f"21! Final Score Computer: ", str(score['computer']), " You: ", str(score['human']))
 
 
-while True:  
-    deck = generate_deck()
-    deal(deck, 'human', 2)
-    deal(deck, 'computer', 2)
-    print_hand('human')
-    while True:
-        user_choice = input("(H)it, (S)tand, or (Q)uit: ").upper()
+if __name__ == '__main__':
+    while True:  
+        hand = { 
+            'computer': [],
+            'human': []
+        }
 
-        if user_choice == 'H':
-            deal(deck, 'human', 1)
-            print_hand('human')
-            if get_sum('human') > 21:
-                print('You lose')
+        print('\n New game')
+        deck = generate_deck()
+        deal(deck, hand['human'], 2)
+        deal(deck, hand['computer'], 2)
+        print_hand(hand['human'])
+
+        if check_win(hand['human']):
+            print('You win')
+            continue
+
+        while True:
+            user_choice = input("(H)it, (S)tand, or (Q)uit: ").upper()
+            
+            if user_choice == 'H':
+                deal(deck, hand['human'], 1)
+                print_hand(hand['human'])
+                if check_win(hand['human']):
+                    print('You win')
+                    break
+                elif get_sum(hand['human']) > 21:
+                    print('You lose')
+                    break
+            elif user_choice == 'S':
+                print(get_sum(hand['human']))
                 break
-        elif user_choice == 'S':
-            print(get_sum('human'))
-            break
-        else:
-            break
-    break
+            else:
+               break
+        
+        while True:
+            if check_win(hand['computer']):
+                print('Computer win')
+                break
+            elif get_sum(hand['computer']) > 21:
+                print('Computer lose')
+                break
+            elif get_sum(hand['computer']) < 18:
+                deal(deck, hand['computer'], 1)
+                print_hand(hand['computer'])
+                    
+        if get_sum(hand['computer']) < get_sum(hand['human']) <= 21:
+            print('You win')
+        elif get_sum(hand['human']) < get_sum(hand['computer']) <= 21:
+            print('computer win')  
 
-    
-
-    
-  
+        continue
+        
