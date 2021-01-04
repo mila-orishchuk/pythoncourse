@@ -17,6 +17,6 @@ def generate_unique_words_dictionary(words):
     return unique_words
 
 if __name__ == '__main__':
-    user_input = (input("Enter a sentence: "))
+    user_input = input("Enter a sentence: ")
     words = user_input.translate(str.maketrans(punctuation_dict)).split()
     print(generate_unique_words_dictionary(words))
