@@ -10,7 +10,6 @@ def oops_index_error():
 def oops_key_error():
     raise KeyError
 
-
 def catch_error():
     try:
         oops_key_error()
