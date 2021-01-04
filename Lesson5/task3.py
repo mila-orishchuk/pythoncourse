@@ -17,10 +17,10 @@ def extracting_numbers(list):
     return list2
 
 if __name__ == '__main__':
-    list = []
-    for i in range(1, 100):
-        list.append(i)
-    # list = [*range(1, 100)]
+    # list = []
+    # for i in range(1, 100):
+    #     list.append(i)
+    list = (range(1, 100))
     print(list)
     print(extracting_numbers(list))
     
