@@ -18,14 +18,14 @@ if not os.path.exists(path):
 
 my_file = open(file_name, 'w+')
 
-def getAll()
+def getAll():
     my_file.seek(0)
     return json.load(my_file)
 
-def create(row: dict):
+def create(contact: dict):
     my_file.seek(0)
     data = json.load(my_file)
-    data.push(row)
+    data.append(contact)
     json.dump(data, my_file)
 
 def update(id, new_row):
