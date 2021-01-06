@@ -31,7 +31,7 @@ def add_contact():
     contact = {
         'firstName': name,
         "lastName": lastname,
-        "fullName": name + " " + lastname,
+        "fullName": name + lastname,
         "phone": phone,
         "city": city
     }
@@ -41,7 +41,8 @@ def search_contact(phonebook):
     pass
 
 def delete_by_phone(phone):
-    pass
+    
+    data.delete(phone)
 
 def update_by_phone(phone):
     pass
@@ -73,4 +74,4 @@ if __name__ == '__main__':
     },
 ]
 
-    print(tools.render_menu(main_menu))
+    tools.render_menu(main_menu)

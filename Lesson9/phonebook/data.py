@@ -1,6 +1,3 @@
-'''
-
-'''
 import os
 import json
 import phonebook
@@ -16,26 +13,31 @@ if not os.path.exists(path):
     else:
         print ("You add directory")
 
-my_file = open(file_name, 'w+')
+
+
+
+my_file = open(file_name, 'r+')
+if not os.path.isfile(file_name):
+    with open(file_name, "r+") as my_file:
+        json.dump([], my_file)
 
 def getAll():
-    my_file.seek(0)
     return json.load(my_file)
 
 def create(contact: dict):
-    my_file.seek(0)
     data = json.load(my_file)
     data.append(contact)
     json.dump(data, my_file)
+    print()
 
-def update(id, new_row):
-    my_file.seek(0)
+def update(id, new_contact):
     data = json.load(my_file)
-    data[id] = new_row
+    data[id] = new_contact
     json.dump(data, my_file)
 
-def delete(id):
-    my_file.seek(0)
+def delete(phone):
     data = json.load(my_file)
-    del(data[id])
+    del(data[phone])
     json.dump(data, my_file)
+
+#my_file = close(file_name)
