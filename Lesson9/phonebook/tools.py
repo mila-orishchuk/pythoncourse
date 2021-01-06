@@ -1,4 +1,5 @@
 from os import system, name 
+import phonebook
 
 def clear(): 
     if name == 'nt': 
@@ -6,7 +7,7 @@ def clear():
     else: 
         system('clear') 
 
-def render_menu(menu: list):
+def render_menu(main_menu: list):
     clear()
 
     for i, item in enumerate(menu):

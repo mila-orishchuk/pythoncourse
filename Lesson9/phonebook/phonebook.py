@@ -24,23 +24,23 @@ import tools
 
 main_menu = [
     {
-        'callback': phonebook_tools.add_contact,
+        'callback': add_contact,
         'menu_item': 'Create new contact'
     },
     {
-        'callback': phonebook_tools.search_contact,
+        'callback': search_contact,
         'menu_item': 'Search contact'
     },
     {
-        'callback': phonebook_tools.update_by_phone,
+        'callback': update_by_phone,
         'menu_item': 'Update an record'
     },
     {
-        'callback': phonebook_tools.delete_by_phone,
+        'callback': delete_by_phone,
         'menu_item': 'Delete an record'
     },
     {
-        'callback': phonebook_tools.exit_program,
+        'callback': exit_program,
         'menu_item': 'Exit'
     },
 ]
