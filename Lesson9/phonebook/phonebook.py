@@ -24,7 +24,6 @@ import tools
 
 
 def add_contact():
-
     name = input('Name: ').capitalize()
     lastname = input("Last name: ").capitalize()
     phone = input("Phone: ")
@@ -39,24 +38,13 @@ def add_contact():
     data.create(contact)
 
 def search_contact(phonebook):
-    query = input('Enter name to search: ')
-    if type(query)==str:
-        query = query.capitalize()
-        disp(query)         
-    elif type(query)==int:
-        print(contacts.values())
+    pass
 
 def delete_by_phone(phone):
-    phone = str(input('Enter phone of the contact to delete').capitalize())
-    confirm = input('Delete this contact? Y/N: ')
-    if confirm.upper() == 'Y':
-        contacts.pop(phone)
+    pass
 
 def update_by_phone(phone):
-    phone = str(input('Enter phone of the contact to update').capitalize())
-    confirm = input('Update this contact? Y/N: ')
-    if confirm.upper() == 'Y':
-        contacts.pop(phone)
+    pass
 
 def exit_program():
     exit()
