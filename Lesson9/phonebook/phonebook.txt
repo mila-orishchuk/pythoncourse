@@ -1,5 +1,5 @@
 contacts = [
-{'id': 1,'name': 'Sophia', 'last_name': 'Dertegh', 'fullname': 'SophiaDertegh', 'phone': '0635550142', 'city': 'Denver'},
+{'name': 'Sophia', 'last_name': 'Dertegh', 'fullname': 'SophiaDertegh', 'phone': '0635550142', 'city': 'Denver'},
 {'name': 'Jackson', 'last_name': 'Regas', 'fullname': 'JacksonRegas', 'phone': '0933659319', 'city': 'Tokio'},
 {'name': 'Zoe', 'last_name': 'Fadow', 'fullname': 'ZoeFadow', 'phone': '0933659319', 'city': 'Tokio'},
 {'name': 'Ava', 'last_name': 'Sahbav', 'fullname': 'AvaSahbav', 'phone': '0505392126', 'city': 'Helsinki'},
