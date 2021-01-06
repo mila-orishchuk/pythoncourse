@@ -22,28 +22,6 @@ import json
 import data
 import tools
 
-main_menu = [
-    {
-        'callback': add_contact,
-        'menu_item': 'Create new contact'
-    },
-    {
-        'callback': search_contact,
-        'menu_item': 'Search contact'
-    },
-    {
-        'callback': update_by_phone,
-        'menu_item': 'Update an record'
-    },
-    {
-        'callback': delete_by_phone,
-        'menu_item': 'Delete an record'
-    },
-    {
-        'callback': exit_program,
-        'menu_item': 'Exit'
-    },
-]
 
 def add_contact():
 
@@ -84,3 +62,27 @@ def exit_program():
     exit()
 
 if __name__ == '__main__':
+    main_menu = [
+    {
+        'callback': add_contact,
+        'menu_item': 'Create new contact'
+    },
+    {
+        'callback': search_contact,
+        'menu_item': 'Search contact'
+    },
+    {
+        'callback': update_by_phone,
+        'menu_item': 'Update an record'
+    },
+    {
+        'callback': delete_by_phone,
+        'menu_item': 'Delete an record'
+    },
+    {
+        'callback': exit_program,
+        'menu_item': 'Exit'
+    },
+]
+
+    print(tools.render_menu(main_menu))
