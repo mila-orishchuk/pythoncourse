@@ -30,9 +30,12 @@ def create(contact: dict):
     json.dump(data, my_file)
 
 
-def update(id, new_contact):
+def update(contact_id, new_contact):
+    my_file.seek(0)
     data = json.load(my_file)
-    data[id] = new_contact
+    data[contact_id] = new_contact
+    my_file.truncate(0)
+    my_file.seek(0)
     json.dump(data, my_file)
 
 

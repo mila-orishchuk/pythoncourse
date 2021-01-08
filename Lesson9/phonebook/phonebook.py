@@ -21,6 +21,7 @@ import os
 import json
 import data
 import tools
+#from Lesson3.task4 import validNumber
 
 fields = {
     0: 'name',
@@ -29,6 +30,7 @@ fields = {
     3: 'phone',
     4: 'city'
 }
+
 
 def add_contact(user_input):
     name = input('Name: ').capitalize()
@@ -46,7 +48,7 @@ def add_contact(user_input):
 
 
 def search_contact(user_input):
-    search_menu = []  
+    search_menu = []
     for i in fields:
         search_menu.append({
             'callback': search_by_param,
@@ -54,79 +56,91 @@ def search_contact(user_input):
         })
     tools.render_menu(search_menu)
 
+
 def search_by_param(user_input):
     contacts = data.getAll()
     enter = input(f"Enter {fields[user_input]} to search: ")
-    filtered_contacts = list(filter(lambda contact: contact[fields[user_input]].lower() == enter.lower(), contacts))
+    filtered_contacts = list(filter(
+        lambda contact: contact[fields[user_input]].lower() == enter.lower(), contacts))
     for item in filtered_contacts:
         print(*item.values())
-    # print(filtered_contacts)
+
+
+def get_contact_id_by_phone(all_contacts, phone):
+    filtered_contacts = list(filter(
+        lambda contact: contact['phone'] == phone,
+        all_contacts
+    ))
+    contact = None
+    if len(filtered_contacts) == 1:
+        contact = filtered_contacts.pop()
+    elif len(filtered_contacts) == 0:
+        raise Exception('Contact not found')
+    else:
+        available_contacts = []
+        for contact in filtered_contacts:
+            available_contacts.append({
+                'menu_item': f"{contact['name']} {contact['last_name']} {contact['city']}"
+            })
+        index = tools.render_menu(available_contacts, 'Specify contact: ')
+        contact = filtered_contacts[index]
+
+    return all_contacts.index(contact)
+
 
 def delete_by_phone(user_input):
     phone = input("Enter phone to delete: ")
-    contacts = data.getAll()
-    filtered_contacts = list(
-        filter(lambda contact: contact['phone'] == phone, contacts))
-    while True:
-        if len(filtered_contacts) == 1:
-            id = contacts.index(filtered_contacts.pop())
-            print(id)
-            data.delete(id)
-        elif len(filtered_contacts) == 0:
-            print('Contact not found')
-        else:
-            del_contacts = []
-            for contact in filtered_contacts:
-                del_contacts.append({
-                    'callback': lambda user_input:
-                        data.delete(
-                            contacts.index(filtered_contacts[user_input])
-                        ),
-                    'menu_item': f"{contact['name']} {contact['last_name']}"
-                })
-            tools.render_menu(del_contacts, 'Choose contact to delete: ')
-            # for i, contact in enumerate(filtered_contacts):
-            #     print(i, contact['name'], contact['last_name'])
-            # user_input = int(input())
-            # if not 0 <= user_input < len(filtered_contacts):
-            #     print('Invalid input')
-            # continue
-            # id = contacts.index(filtered_contacts[user_input])
-            # data.delete(id)
-        break
+    all_contacts = data.getAll()
+    contact_id = get_contact_id_by_phone(all_contacts, phone)
+    data.delete(contact_id)
 
 
 def update_by_phone(user_input):
-    pass
+    phone = input("Enter phone to update: ")
+    all_contacts = data.getAll()
+    contact_id = get_contact_id_by_phone(all_contacts, phone)
+    new_contact = all_contacts[contact_id]
 
+    update_contact_menu = []
+    for key, value in new_contact.items():
+        update_contact_menu.append({'menu_item': f'{key}: {value}'})
+    
+    field_id = tools.render_menu(update_contact_menu, 'Choose field to update: ')
+    
+    field = fields[field_id]
+    print(field)
+    user_input = input(f"Enter new {field} update: ")
+    new_contact[field] = user_input
+    data.update(contact_id, new_contact)
 
 # def exit_program(user_input):
 #     exit()
 
 
 if __name__ == '__main__':
- #   while True:
-    main_menu = [
-        {
-            'callback': add_contact,
-            'menu_item': 'Create new contact'
-        },
-        {
-            'callback': search_contact,
-            'menu_item': 'Search contact'
-        },
-        {
-            'callback': update_by_phone,
-            'menu_item': 'Update a record'
-        },
-        {
-            'callback': delete_by_phone,
-            'menu_item': 'Delete a record',
-        },
-        {
-            'callback': exit,
-            'menu_item': 'Exit\n'
-        },
-    ]
+    while True:
+        main_menu = [
+            {
+                'callback': add_contact,
+                'menu_item': 'Create new contact'
+            },
+            {
+                'callback': search_contact,
+                'menu_item': 'Search contact'
+            },
+            {
+                'callback': update_by_phone,
+                'menu_item': 'Update a record'
+            },
+            {
+                'callback': delete_by_phone,
+                'menu_item': 'Delete a record',
+            },
+            {
+                'callback': exit,
+                'menu_item': 'Exit\n'
+            },
+        ]
 
-    tools.render_menu(main_menu)
+        tools.render_menu(main_menu)
+        input('Press any key: ')

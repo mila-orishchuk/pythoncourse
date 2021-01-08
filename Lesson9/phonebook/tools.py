@@ -18,6 +18,8 @@ def render_menu(menu: list, entry_msg='Enter: '):
     entry = int(input(entry_msg)) - 1
 
     if 0 <= entry < len(menu):
-        menu[entry]['callback'](entry)
+        if not menu[entry].get('callback'):
+            return entry
+        menu[entry].get('callback')(entry)
     else:
         print('invalid input')
