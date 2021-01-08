@@ -9,35 +9,40 @@ if not os.path.exists(path):
     try:
         os.mkdir(path)
     except OSError as error:
-        print (error)
+        print(error)
     else:
-        print ("You add directory")
+        print("You add directory")
 
 
-
-
-my_file = open(file_name, 'r+')
-if not os.path.isfile(file_name):
-    with open(file_name, "r+") as my_file:
-        json.dump([], my_file)
+mod = 'r+' if os.path.isfile(file_name) else 'w+'   
+my_file = open(file_name, mod)
 
 def getAll():
+    my_file.seek(0)
     return json.load(my_file)
+
 
 def create(contact: dict):
     data = json.load(my_file)
     data.append(contact)
+    my_file.truncate(0)
+    my_file.seek(0)
     json.dump(data, my_file)
-    print()
 
 def update(id, new_contact):
     data = json.load(my_file)
     data[id] = new_contact
     json.dump(data, my_file)
 
-def delete(phone):
+
+def delete(id):
+    my_file.seek(0)
     data = json.load(my_file)
-    del(data[phone])
+    if not data[id]:
+        raise IndexError("Id not found")
+    del(data[id])
+    my_file.truncate(0)
+    my_file.seek(0)
     json.dump(data, my_file)
 
 #my_file = close(file_name)
