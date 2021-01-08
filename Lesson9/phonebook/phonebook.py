@@ -3,9 +3,9 @@ Extend Phonebook application
 
 Functionality of Phonebook application:
 
-    Add new entries 
-    Search by first name 
-    Search by last name 
+    Add new entries
+    Search by first name
+    Search by last name
     Search by full name
     Search by telephone number
     Search by city or state
@@ -22,6 +22,13 @@ import json
 import data
 import tools
 
+fields = {
+    0: 'name',
+    1: 'lastname',
+    2: 'fullname',
+    3: 'phone',
+    4: 'city'
+}
 
 def add_contact(user_input):
     name = input('Name: ').capitalize()
@@ -39,8 +46,21 @@ def add_contact(user_input):
 
 
 def search_contact(user_input):
-    pass
+    search_menu = []  
+    for i in fields:
+        search_menu.append({
+            'callback': search_by_param,
+            'menu_item': f"Search by {fields[i]}"
+        })
+    tools.render_menu(search_menu)
 
+def search_by_param(user_input):
+    contacts = data.getAll()
+    enter = input(f"Enter {fields[user_input]} to search: ")
+    filtered_contacts = list(filter(lambda contact: contact[fields[user_input]].lower() == enter.lower(), contacts))
+    for item in filtered_contacts:
+        print(*item.values())
+    # print(filtered_contacts)
 
 def delete_by_phone(user_input):
     phone = input("Enter phone to delete: ")
