@@ -23,6 +23,7 @@ def getAll():
 
 
 def create(contact: dict):
+    my_file.seek(0)
     data = json.load(my_file)
     data.append(contact)
     my_file.truncate(0)
@@ -33,6 +34,8 @@ def create(contact: dict):
 def update(contact_id, new_contact):
     my_file.seek(0)
     data = json.load(my_file)
+    if not data[contact_id]:
+        raise IndexError("Id not found")
     data[contact_id] = new_contact
     my_file.truncate(0)
     my_file.seek(0)
@@ -48,6 +51,3 @@ def delete(id):
     my_file.truncate(0)
     my_file.seek(0)
     json.dump(data, my_file)
-
-
-# my_file = close(file_name)

@@ -104,43 +104,43 @@ def update_by_phone(user_input):
     update_contact_menu = []
     for key, value in new_contact.items():
         update_contact_menu.append({'menu_item': f'{key}: {value}'})
-    
-    field_id = tools.render_menu(update_contact_menu, 'Choose field to update: ')
-    
+
+    field_id = tools.render_menu(
+        update_contact_menu, 'Choose field to update: ')
+
     field = fields[field_id]
     print(field)
     user_input = input(f"Enter new {field} update: ")
     new_contact[field] = user_input
     data.update(contact_id, new_contact)
 
-# def exit_program(user_input):
-#     exit()
-
-
 if __name__ == '__main__':
     while True:
-        main_menu = [
-            {
-                'callback': add_contact,
-                'menu_item': 'Create new contact'
-            },
-            {
-                'callback': search_contact,
-                'menu_item': 'Search contact'
-            },
-            {
-                'callback': update_by_phone,
-                'menu_item': 'Update a record'
-            },
-            {
-                'callback': delete_by_phone,
-                'menu_item': 'Delete a record',
-            },
-            {
-                'callback': exit,
-                'menu_item': 'Exit\n'
-            },
-        ]
+        try:
+            main_menu = [
+                {
+                    'callback': add_contact,
+                    'menu_item': 'Create new contact'
+                },
+                {
+                    'callback': search_contact,
+                    'menu_item': 'Search contact'
+                },
+                {
+                    'callback': update_by_phone,
+                    'menu_item': 'Update a record'
+                },
+                {
+                    'callback': delete_by_phone,
+                    'menu_item': 'Delete a record',
+                },
+                {
+                    'callback': exit,
+                    'menu_item': 'Exit\n'
+                },
+            ]
 
-        tools.render_menu(main_menu)
+            tools.render_menu(main_menu)
+        except Exception as e:
+            print(e)
         input('Press any key: ')
