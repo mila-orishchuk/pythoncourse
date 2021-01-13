@@ -15,6 +15,9 @@ class CustomException(Exception):
 
     def __init__(self, message):
         super().__init__(message)
+        self.log_to_file(message)
+
+    def log_to_file(self, message):
         mod = "a" if os.path.isfile(self.log_file_name) else "w"
         with open(self.log_file_name, mod) as err_file:
             err_file.write(self.date_str + ' ' + message + '\n')
