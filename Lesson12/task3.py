@@ -9,9 +9,8 @@ class Fraction:
             raise TypeError("Must be integer")
         if denominator == 0:
             raise ZeroDivisionError("The denominator cann`t be zero")
-        hcf = gcd(numerator, denominator)
-        self.top = int(numerator / hcf)
-        self.bottom = int(denominator / hcf)
+        self.top = numerator
+        self.bottom = denominator
 
     def __str__(self):
         if self.bottom == 1:
