@@ -11,6 +11,10 @@ performs talk method on input parameter.
 '''
 
 
+def print_talk(animal):
+    print(animal.talk())
+
+
 class Animal:
     def __init__(self, name):
         self.name = name
@@ -33,10 +37,6 @@ class Cat(Animal):
 
     def talk(self):
         return "meow"
-
-
-def print_talk(animal: Animal):
-    print(animal.talk())
 
 
 if __name__ == '__main__':
