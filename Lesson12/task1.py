@@ -16,9 +16,6 @@ def print_talk(animal):
 
 
 class Animal:
-    def __init__(self, name):
-        self.name = name
-
     def talk(self):
         raise NotImplementedError(f'Define talk for {self.__class__.__name__}')
 
@@ -34,7 +31,7 @@ class Cat(Animal):
 
 
 if __name__ == '__main__':
-    cat = Cat("Masha")
+    cat = Cat()
     print_talk(cat)
-    dog = Dog("Sharik")
+    dog = Dog()
     print_talk(dog)
