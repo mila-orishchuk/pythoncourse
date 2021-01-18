@@ -20,10 +20,7 @@ def remove_negatives(nums):
 
 if __name__ == '__main__':
     nums1 = [1, 2, 3, 4, 5]
-    print(min(nums1)>=0)
     nums2 = [1, -2, 3, -4, 5]
     assert choose_func(nums1, square_nums, remove_negatives) == [
         1, 4, 9, 16, 25]
     assert choose_func(nums2, square_nums, remove_negatives) == [1, 3, 5]
-    print(choose_func(nums1, square_nums, remove_negatives))
-    print(choose_func(nums2, square_nums, remove_negatives))
