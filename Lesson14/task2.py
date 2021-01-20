@@ -8,7 +8,7 @@ from functools import wraps
 def stop_words(words: list):
     def decorator(func):
         @wraps(func)
-        def wrapper(*args):
+        def wrapper(*args, **kwargs):
             result = func(*args)
             for word in words:
                 result = result.replace(word, "*")

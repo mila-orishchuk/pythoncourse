@@ -11,7 +11,7 @@ from functools import wraps
 
 def logger(func):
     @wraps(func)
-    def wrapper(*args):
+    def wrapper(*args, **kwargs):
         print(func.__name__, 'called with', ', '.join(map(str, args)))
     return wrapper
 
