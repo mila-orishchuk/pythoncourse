@@ -13,6 +13,7 @@ def logger(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         print(func.__name__, 'called with', ', '.join(map(str, args)))
+        return func(*args, **kwargs)
     return wrapper
 
 
@@ -27,6 +28,5 @@ def square_all(*args):
 
 
 if __name__ == '__main__':
-    print(add.__name__)
-    add(1, 2)
-    square_all(1, 3, 5)
+    assert add(1, 2) == 3
+    assert square_all(1, 3, 5) == [1, 9, 25]
