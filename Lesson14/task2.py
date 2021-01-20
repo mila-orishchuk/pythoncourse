@@ -9,7 +9,7 @@ def stop_words(words: list):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            result = func(*args)
+            result = func(*args, **kwargs)
             for word in words:
                 result = result.replace(word, "*")
             return result
