@@ -6,13 +6,13 @@ notifier = notify(every=1000)
 """
 
 
-def notify(dataset=range(10000), every=1000):
+def notify(dataset, every=1000):
     for i in dataset:
         if not i % every:
             yield "Итерация __ выполнена"
 
 
 if __name__ == '__main__':
-    notifier = notify(every=1000)
+    notifier = notify(range(10000), every=1000)
     for i in notifier:
         print(i)
