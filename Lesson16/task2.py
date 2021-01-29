@@ -6,21 +6,22 @@ Tips: See the documentation for `range` function
 '''
 
 
-def in_range(start: int, end = None, step = 1):
+def in_range(start: int, end=None, step=1):
     if not all((arg, int) for arg in (start, end, step)):
-       raise TypeError
-    
+        raise TypeError
+
     if end is None:
         start, end = 0, start
 
     if step == 0:
         raise ValueError('Does not accept step = 0')
-    current = start
 
+    current = start
     while (step > 0 and current < end or step < 0 and current > end):
         yield current
         current += step
-    
+
+
 if __name__ == '__main__':
     data_sets = [
         (10,),
@@ -37,4 +38,3 @@ if __name__ == '__main__':
             print(error)
         except TypeError as error:
             print(error)
-
