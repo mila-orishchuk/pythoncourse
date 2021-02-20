@@ -36,7 +36,7 @@ class Stack:
         
         pop_node = self._head
         self._head = self._head.get_next()
-        pop_node.set_next = None
+        pop_node.set_next(None)
 
         return pop_node.get_data()
 
@@ -44,13 +44,14 @@ class Stack:
         return None if self.is_empty else self._head.get_data()
 
     def __repr__(self):
-        representation = "<Stack: "
         current = self._head
+        l = []
         while current is not None:
-            representation += f'{current.get_data()} '
+            l.append(str(current.get_data()))
+            # representation += f'{current.get_data()} '
             current = current.get_next()
-
-        return representation + ">"
+        representation = " ".join(l)
+        return f"<Stack: {representation}>"
 
     def __str__(self):
         return self.__repr__()
