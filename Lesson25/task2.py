@@ -4,34 +4,42 @@ Explore its complexity and compare it to sequential, binary searches.
 '''
 
 
-def fibonacci_generator(n):
-    if n < 1:
-        return 0
-    elif n == 1:
-        return 1
-    return fibonacci_generator(n - 1) + fibonacci_generator(n - 2)
+# def fibonacci_generator(n):
+#     a,b = 0,1
+#     while True:
+#         yield a
+#         a, b = b, a + b
 
 
-def fibonacci_search(arr, x):
-    m = 0
-    while fibonacci_generator(m) < len(arr):
-        m += 1 
+def fibonacci_search(seq, x):
+    if type(seq) == dict:
+        seq = list(seq.values())
+    fib_m2 = 0
+    fib_m1 = 1
+    fib_m = fib_m1 + fib_m2
     
-    offset = -1    
-    while fibonacci_generator(m) > 1:
-        i = min( offset + fibonacci_generator(m - 2) , len(arr) - 1)
-        print('Current Element : ',arr[i])
+    while fib_m < len(seq):
+        fib_m2 = fib_m1
+        fib_m1 = fib_m
+        fib_m = fib_m1 + fib_m2
+    index = -1
+    
+    while fib_m > 1:
+        i = min(index + fib_m2, (len(seq)-1))
+        if (seq[i] < x):
+            fib_m = fib_m1
+            fib_m1 = fib_m2
+            fib_m2 = fib_m - fib_m1
+            index = i
+        elif seq[i] > x:
+            fib_m = fib_m2
+            fib_m1 = fib_m1 - fib_m2
+            fib_m2 = fib_m - fib_m1
+        else :
+            return i
         
-        if (x > arr[i]):
-            m = m - 1
-            offset = i
-        elif (x < arr[i]):
-            m = m - 2
-        else:
-            return i        
-    
-    if fibonacci_generator(m - 1) and arr[offset + 1] == x:
-        return offset + 1
+    if(fib_m1 and index < (len(seq)-1) and seq[index+1] == x):
+        return index+1
     return -1
 
 
