@@ -13,25 +13,21 @@ def fibonacci_generator(n):
 
 
 def fibonacci_search(arr, x):
-    m = 0
-    offset = -1
-
+        m = 0
     while fibonacci_generator(m) < len(arr):
-        m += 1
-
-    while fibonacci_generator(m) > 1:
-        i = min(offset + fibonacci_generator(m - 2), len(arr) - 1)
-        print('Current Element : ', arr[i])
-
-        if (x < arr[i]):
-            m = m - 2
+        m = m + 1 
+    offset = -1    
+    while (fibonacci_generator(m) > 1):
+        i = min( offset + fibonacci_generator(m - 2) , len(arr) - 1)
+        print('Current Element : ',arr[i])
+        if (x > arr[i]):
+            m = m - 1
             offset = i
-        elif (x > arr[i]):
-            m -= 1
+        elif (x < arr[i]):
+            m = m - 2
         else:
-            return i
-
-    if fibonacci_generator(m - 1) and arr[offset + 1] == x:
+            return i        
+    if(fibonacci_generator(m - 1) and arr[offset + 1] == x):
         return offset + 1
     return -1
 
