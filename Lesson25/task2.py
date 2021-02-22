@@ -16,10 +16,12 @@ def fibonacci_search(arr, x):
         m = 0
     while fibonacci_generator(m) < len(arr):
         m = m + 1 
+    
     offset = -1    
     while (fibonacci_generator(m) > 1):
         i = min( offset + fibonacci_generator(m - 2) , len(arr) - 1)
         print('Current Element : ',arr[i])
+        
         if (x > arr[i]):
             m = m - 1
             offset = i
@@ -27,6 +29,7 @@ def fibonacci_search(arr, x):
             m = m - 2
         else:
             return i        
+    
     if(fibonacci_generator(m - 1) and arr[offset + 1] == x):
         return offset + 1
     return -1
