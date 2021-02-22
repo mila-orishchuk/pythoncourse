@@ -13,9 +13,9 @@ def fibonacci_generator(n):
 
 
 def fibonacci_search(arr, x):
-        m = 0
+    m = 0
     while fibonacci_generator(m) < len(arr):
-        m = m + 1 
+        m += 1 
     
     offset = -1    
     while (fibonacci_generator(m) > 1):
