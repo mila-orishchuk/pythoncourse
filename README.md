@@ -1,4 +1,4 @@
-## Python for beginners
+# Python for beginners
 Beetroot Academy lessons and homework
 
 ### Lessons in course:
