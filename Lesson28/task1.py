@@ -7,7 +7,6 @@ class MaxHeap:
     def __init__(self, alist=None):
         self.heap = [0]
         self.current_size = 0
-        
         if alist is not None:
             self.create_max_heap(alist)
             self.heap = alist
@@ -20,13 +19,15 @@ class MaxHeap:
             self.max_heapify(i, alist, n)
 
     def max_heapify(self, indx, alist, size):
-        left_child = indx * 2
-        right_child = indx * 2 + 1
+        left_child = indx * 2 + 1
+        right_child = indx * 2 + 2
+
         largest = indx
 
         if left_child < size:
             if alist[left_child] > alist[largest]:
                 largest = left_child
+
         if right_child < size:
             if alist[right_child] > alist[largest]:
                 largest = right_child
@@ -40,7 +41,6 @@ class MaxHeap:
         self.current_size += 1
 
         indx = self.current_size - 1
-
         parent = int(indx / 2 - 1)
 
         while parent >= 0 and self.heap[indx] > self.heap[parent]:
@@ -55,7 +55,6 @@ class MaxHeap:
 
         self.heap[-1], self.heap[indx] = self.heap[indx], self.heap[-1]
         self.current_size -= 1
-
         self.max_heapify(indx, self.heap, self.current_size)
 
         return self.heap.pop()
