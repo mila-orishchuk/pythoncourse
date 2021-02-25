@@ -3,7 +3,6 @@ Beetroot Academy lessons and homework
 
 ## Index:
 
-[pythoncourse](https://github.com/mila-orishchuk/pythoncourse)
   - [Перші кроки](https://github.com/mila-orishchuk/pythoncourse/tree/master/Lesson1)
   - [Змінні та примітивні типи даних](https://github.com/mila-orishchuk/pythoncourse/tree/master/Lesson2)
   - [Булевий тип даних та керівні структури з оператором циклу while](https://github.com/mila-orishchuk/pythoncourse/tree/master/Lesson3)
