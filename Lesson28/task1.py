@@ -50,7 +50,6 @@ class MaxHeap:
 
     def delete(self, indx):
         if self.current_size == 0:
-            print("Heap Underflow!!")
             return
 
         self.heap[-1], self.heap[indx] = self.heap[indx], self.heap[-1]
@@ -63,15 +62,14 @@ class MaxHeap:
         return self.delete(0)
 
     def __str__(self):
-        print(*self.heap)
+        return ', '.join(map(str, self.heap))
 
 
 if __name__ == "__main__":
-    heap = MaxHeap([5, 10, 4, 8, 3, 0, 9, 11])
-    heap.__str__()
-    heap.insert(15)
-    heap.__str__()
-    print(heap.delete(2))
-    heap.__str__()
-    print(heap.extract_max())
-    heap.__str__()
+    heap = MaxHeap([7, 10, 2, 8, 5, 9, 11])
+    print(heap)
+    heap.insert(1)
+    print(heap)
+    print('del 2nd is', heap.delete(2))
+    heap.extract_max()
+    print(heap)
