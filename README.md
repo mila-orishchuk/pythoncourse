@@ -1,7 +1,7 @@
 # Python for beginners
 Beetroot Academy lessons and homework
 
-## Index:
+### Lessons in course:
 
   - [Перші кроки](https://github.com/mila-orishchuk/pythoncourse/tree/master/Lesson1)
   - [Змінні та примітивні типи даних](https://github.com/mila-orishchuk/pythoncourse/tree/master/Lesson2)
