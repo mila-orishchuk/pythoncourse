@@ -7,6 +7,7 @@ class MaxHeap:
     def __init__(self, alist=None):
         self.heap = [0]
         self.current_size = 0
+        
         if alist is not None:
             self.create_max_heap(alist)
             self.heap = alist

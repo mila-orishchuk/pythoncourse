@@ -4,5 +4,9 @@ Your PriorityQueue class should implement the constructor, plus the enqueue and 
 '''
 
 
+class PriorityQueue:
+    pass
+
+
 if __name__ == "__main__":
     pass
