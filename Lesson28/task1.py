@@ -5,7 +5,7 @@ Implement a binary heap as a max heap
 
 class MaxHeap:
     def __init__(self, alist=None):
-        self.heap = [0]
+        self.heap = []
         self.current_size = 0
         if alist is not None:
             self.create_max_heap(alist)
@@ -24,13 +24,11 @@ class MaxHeap:
 
         largest = indx
 
-        if left_child < size:
-            if alist[left_child] > alist[largest]:
-                largest = left_child
+        if left_child < size and alist[left_child] > alist[largest]:
+            largest = left_child
 
-        if right_child < size:
-            if alist[right_child] > alist[largest]:
-                largest = right_child
+        if right_child < size and alist[right_child] > alist[largest]:
+            largest = right_child
 
         if largest != indx:
             alist[indx], alist[largest] = alist[largest], alist[indx]
