@@ -15,17 +15,6 @@ class CalculatorWindow(QtWidgets.QMainWindow, Ui_Calculator):
         for button in buttons:
             getattr(self, f'pushButton_{button}').clicked.connect(self.button_pressed)
 
-        # self.pushButton_0.clicked.connect(self.button_pressed)
-        # self.pushButton_1.clicked.connect(self.button_pressed)
-        # self.pushButton_2.clicked.connect(self.button_pressed)
-        # self.pushButton_3.clicked.connect(self.button_pressed)
-        # self.pushButton_4.clicked.connect(self.button_pressed)
-        # self.pushButton_5.clicked.connect(self.button_pressed)
-        # self.pushButton_6.clicked.connect(self.button_pressed)
-        # self.pushButton_7.clicked.connect(self.button_pressed)
-        # self.pushButton_8.clicked.connect(self.button_pressed)
-        # self.pushButton_9.clicked.connect(self.button_pressed)
-
         self.pushButton_module.clicked.connect(self.unary_button_pressed)
         self.pushButton_percent.clicked.connect(self.unary_button_pressed)
 
@@ -56,7 +45,6 @@ class CalculatorWindow(QtWidgets.QMainWindow, Ui_Calculator):
         else:
             if float(self.label.text()) > 10000000000:
                 return
-                # return self.label.setText(self.label.text())
 
             if '.' in self.label.text() and button.text() == '0':
                 new_label = format(self.label.text() + button.text(), '.15')
