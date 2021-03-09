@@ -1,5 +1,8 @@
 # Практика: створення калькулятора за допомогою PyQT
 
+
+![Peek recording Calculator functionality](https://github.com/mila-orishchuk/pythoncourse/tree/master/Lesson33/img/calc.gif)
+
 ### Links:  
 Main reference for practice lesson:  
 https://realpython.com/python-pyqt-gui-calculator/  
