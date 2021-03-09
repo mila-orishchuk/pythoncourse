@@ -1,14 +1,14 @@
 # Практика: створення калькулятора за допомогою PyQT
 
 ### Links:  
-Main reference for practice lesson:
+Main reference for practice lesson:  
 https://realpython.com/python-pyqt-gui-calculator/  
 
-Documentation for PyQT:
+Documentation for PyQT:  
 https://www.riverbankcomputing.com/static/Docs/PyQt5/  
 https://www.riverbankcomputing.com/static/Docs/PyQt4/  
 
-Additional links to topic:
+Additional links to topic:  
 https://wiki.python.org/moin/PyQt    
 https://www.learnpyqt.com/apps/build-desktop-calculator/  
 http://thecodeinn.blogspot.com/2013/07/tutorial-pyqt-calculator.html  
