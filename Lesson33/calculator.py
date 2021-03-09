@@ -11,16 +11,20 @@ class CalculatorWindow(QtWidgets.QMainWindow, Ui_Calculator):
         self.setupUi(self)
         self.show()
 
-        self.pushButton_0.clicked.connect(self.button_pressed)
-        self.pushButton_1.clicked.connect(self.button_pressed)
-        self.pushButton_2.clicked.connect(self.button_pressed)
-        self.pushButton_3.clicked.connect(self.button_pressed)
-        self.pushButton_4.clicked.connect(self.button_pressed)
-        self.pushButton_5.clicked.connect(self.button_pressed)
-        self.pushButton_6.clicked.connect(self.button_pressed)
-        self.pushButton_7.clicked.connect(self.button_pressed)
-        self.pushButton_8.clicked.connect(self.button_pressed)
-        self.pushButton_9.clicked.connect(self.button_pressed)
+        buttons = range(0, 10)
+        for button in buttons:
+            getattr(self, f'pushButton_{button}').clicked.connect(self.button_pressed)
+
+        # self.pushButton_0.clicked.connect(self.button_pressed)
+        # self.pushButton_1.clicked.connect(self.button_pressed)
+        # self.pushButton_2.clicked.connect(self.button_pressed)
+        # self.pushButton_3.clicked.connect(self.button_pressed)
+        # self.pushButton_4.clicked.connect(self.button_pressed)
+        # self.pushButton_5.clicked.connect(self.button_pressed)
+        # self.pushButton_6.clicked.connect(self.button_pressed)
+        # self.pushButton_7.clicked.connect(self.button_pressed)
+        # self.pushButton_8.clicked.connect(self.button_pressed)
+        # self.pushButton_9.clicked.connect(self.button_pressed)
 
         self.pushButton_module.clicked.connect(self.unary_button_pressed)
         self.pushButton_percent.clicked.connect(self.unary_button_pressed)
@@ -43,30 +47,35 @@ class CalculatorWindow(QtWidgets.QMainWindow, Ui_Calculator):
 
     def button_pressed(self):
         button = self.sender()
+
         if ((self.pushButton_add.isChecked() or self.pushButton_substract.isChecked() or
                 self.pushButton_multiply.isChecked() or self.pushButton_divide.isChecked())
                 and (not self.typing_number)):
-            new_label = format(float(button.text()), '.20g')
+            new_label = format(float(button.text()), '.15g')
             self.typing_number = True
         else:
-            if '.' in self.label.text() and button.text == '0':
-                new_label = format(
-                    float(self.label.text() + button.text()), '.20')
+            if float(self.label.text()) > 10000000000:
+                return
+                # return self.label.setText(self.label.text())
+
+            if '.' in self.label.text() and button.text() == '0':
+                new_label = format(self.label.text() + button.text(), '.15')
             else:
                 new_label = format(
-                    float(self.label.text() + button.text()), '.20g')
+                    float(self.label.text() + button.text()), '.15g')
+
         self.label.setText(new_label)
 
     def unary_button_pressed(self):
         button = self.sender()
         lable_number = float(self.label.text())
 
-        if button.text() == '%':
-            lable_number *= 0.01
-        else:
+        if button.text() == '+/-':
             lable_number *= -1
-        
-        new_label = format(lable_number, '.20g')
+        else:
+            lable_number *= 0.01
+
+        new_label = format(lable_number, '.15g')
         self.label.setText(new_label)
 
     def binary_button_pressed(self):
@@ -76,9 +85,7 @@ class CalculatorWindow(QtWidgets.QMainWindow, Ui_Calculator):
         button.setChecked(True)
 
     def decimal_pressed(self):
-        if ('.' in self.label.text()):
-            new_label = self.label.setText(self.label.text())
-        else:
+        if '.' not in self.label.text():
             new_label = self.label.setText(self.label.text() + '.')
 
     def clear_button_pressed(self):
@@ -91,30 +98,32 @@ class CalculatorWindow(QtWidgets.QMainWindow, Ui_Calculator):
         self.label.setText('0')
 
     def equal_pressed(self):
-        secondNum = float(self.label.text())
+        typing_number = float(self.label.text())
         if self.pushButton_add.isChecked():
-            labelNumber = self.first_number + secondNum
-            new_label = format(labelNumber, '.20g')
+            labelNumber = self.first_number + typing_number
+            new_label = format(labelNumber, '.15g')
             self.label.setText(new_label)
             self.pushButton_add.setChecked(False)
 
         elif self.pushButton_substract.isChecked():
-            labelNumber = self.first_number - secondNum
-            new_label = format(labelNumber, '.20g')
+            labelNumber = self.first_number - typing_number
+            new_label = format(labelNumber, '.15g')
             self.label.setText(new_label)
             self.pushButton_substract.setChecked(False)
 
         elif self.pushButton_divide.isChecked():
-            labelNumber = self.first_number / secondNum
-            new_label = format(labelNumber, '.20g')
-            self.label.setText(new_label)
-            self.pushButton_divide.setChecked(False)
+            try:
+                labelNumber = self.first_number / typing_number
+                new_label = format(labelNumber, '.15g')
+                self.label.setText(new_label)
+                self.pushButton_divide.setChecked(False)
+            except ZeroDivisionError:
+                self.label.setText('Error')
 
         elif self.pushButton_multiply.isChecked():
-            labelNumber = self.first_number * secondNum
-            new_label = format(labelNumber, '.20g')
+            labelNumber = self.first_number * typing_number
+            new_label = format(labelNumber, '.15g')
             self.label.setText(new_label)
             self.pushButton_multiply.setChecked(False)
 
         self.typing_number = False
-
