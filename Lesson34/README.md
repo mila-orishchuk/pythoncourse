@@ -40,7 +40,6 @@ NUMBERS = [
 We have the following input list of numbers, some of them are prime. You need to create a utility function that takes as input a number and returns a bool, whether it is prime or not.
 
 Use ThreadPoolExecutor and ProcessPoolExecutor to create different concurrent implementations for filtering NUMBERS. 
-
 Compare the results and performance of each of them.
 
 [Task 2](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson34/task2.py)
@@ -48,7 +47,6 @@ Compare the results and performance of each of them.
 ##### Requests using concurrent and multiprocessing libraries
 
 Download all comments from a subreddit of your choice using URL: https://api.pushshift.io/reddit/comment/search/ . 
-
 As a result, store all comments in chronological order in JSON and dump it to a file. For this task use concurrent and multiprocessing libraries for making requests to Reddit API.
 
 [Task 3](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson34/echo_server)
