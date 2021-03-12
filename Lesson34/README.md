@@ -1,7 +1,7 @@
 # Мультипроцесорність
 
 
-![Peek recording Calculator functionality](https://raw.githubusercontent.com/mila-orishchuk/pythoncourse/master/Lesson34/echo_server/img/client_window.gif)
+![Peek recording Client Window functionality](https://raw.githubusercontent.com/mila-orishchuk/pythoncourse/master/Lesson34/echo_server/img/client_window.gif)
 
 
 ### Links:  
@@ -16,8 +16,8 @@ https://pymotw.com/3/multiprocessing/basics.html
 #### Homework
 [Task 1](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson34/task1.py)
 
-Primes
-
+##### Primes
+```
 NUMBERS = [
    2,  # prime
    1099726899285419,
@@ -36,24 +36,22 @@ NUMBERS = [
    2447120421950803,
    5,  # prime
 ]
-
+```
 We have the following input list of numbers, some of them are prime. You need to create a utility function that takes as input a number and returns a bool, whether it is prime or not.
 
 Use ThreadPoolExecutor and ProcessPoolExecutor to create different concurrent implementations for filtering NUMBERS. 
-
 Compare the results and performance of each of them.
 
 [Task 2](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson34/task2.py)
 
-Requests using concurrent and multiprocessing libraries
+##### Requests using concurrent and multiprocessing libraries
 
 Download all comments from a subreddit of your choice using URL: https://api.pushshift.io/reddit/comment/search/ . 
-
 As a result, store all comments in chronological order in JSON and dump it to a file. For this task use concurrent and multiprocessing libraries for making requests to Reddit API.
 
 [Task 3](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson34/echo_server)
 
-Echo server with threading
+##### Echo server with threading
 
 Create a socket echo server that handles each connection using the multiprocessing library.
 
