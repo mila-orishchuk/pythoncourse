@@ -41,8 +41,6 @@ class ClientWindow(QtWidgets.QMainWindow):
         self.ui_connect.setupUi(self)
         self.show()
 
-        # self.messages = []
-
         self.ui_connect.pushButton.clicked.connect(self.btn_connect_clicked)
 
         self.tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -68,7 +66,6 @@ class ClientWindow(QtWidgets.QMainWindow):
         self.show()
 
     def connect(self, host, port, user_name):
-
         try:
             self.tcp_client.connect((host, port))
             self.tcp_client.send(user_name.encode())
@@ -87,10 +84,7 @@ class ClientWindow(QtWidgets.QMainWindow):
         self.client_chat.textBrowser.append(message)
 
     def send_message(self):
-        message = self.client_chat.textEdit.toPlainText()
-        
-        # self.show_message("Me: " + message)
-                
+        message = self.client_chat.textEdit.toPlainText()     
         print("sent: " + message)
 
         try:
