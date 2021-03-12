@@ -48,15 +48,21 @@ class Server(multiprocessing.Process):
         while True:
             try:
                 msg = connection.recv(1024)
+                # print(type(msg), msg.decode())
+                if (not msg):
+                    break
+                
                 self.send_message(msg, user_name)
                 logging.info(f"{user_name}: {msg.decode()}")
-            except:
-                connection.close()
-                # remove user from users list
-                del(self.clients[user_name])
+            except Exception as e:
+                print(e)
                 break
 
+        connection.close()
+        # remove user from users list
+        del(self.clients[user_name])
         logger.info(f"{user_name} disconnected")
+        self.send_message('@went to sleep'.encode(), user_name)
 
     def send_message(self, message, sender):
         if len(self.clients) > 0:
