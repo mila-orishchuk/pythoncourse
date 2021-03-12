@@ -1,7 +1,7 @@
 # Мультипроцесорність
 
 
-![Peek recording Calculator functionality](https://raw.githubusercontent.com/mila-orishchuk/pythoncourse/master/Lesson34/echo_server/img/client_window.gif)
+![Peek recording Client Window functionality](https://raw.githubusercontent.com/mila-orishchuk/pythoncourse/master/Lesson34/echo_server/img/client_window.gif)
 
 
 ### Links:  
