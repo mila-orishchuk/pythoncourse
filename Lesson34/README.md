@@ -16,7 +16,7 @@ https://pymotw.com/3/multiprocessing/basics.html
 #### Homework
 [Task 1](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson34/task1.py)
 
-Primes
+##### Primes
 ```
 NUMBERS = [
    2,  # prime
@@ -45,7 +45,7 @@ Compare the results and performance of each of them.
 
 [Task 2](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson34/task2.py)
 
-Requests using concurrent and multiprocessing libraries
+##### Requests using concurrent and multiprocessing libraries
 
 Download all comments from a subreddit of your choice using URL: https://api.pushshift.io/reddit/comment/search/ . 
 
@@ -53,7 +53,7 @@ As a result, store all comments in chronological order in JSON and dump it to a 
 
 [Task 3](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson34/echo_server)
 
-Echo server with threading
+##### Echo server with threading
 
 Create a socket echo server that handles each connection using the multiprocessing library.
 
