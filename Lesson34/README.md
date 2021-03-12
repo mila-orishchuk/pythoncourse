@@ -17,7 +17,7 @@ https://pymotw.com/3/multiprocessing/basics.html
 [Task 1](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson34/task1.py)
 
 Primes
-
+```
 NUMBERS = [
    2,  # prime
    1099726899285419,
@@ -36,7 +36,7 @@ NUMBERS = [
    2447120421950803,
    5,  # prime
 ]
-
+```
 We have the following input list of numbers, some of them are prime. You need to create a utility function that takes as input a number and returns a bool, whether it is prime or not.
 
 Use ThreadPoolExecutor and ProcessPoolExecutor to create different concurrent implementations for filtering NUMBERS. 
