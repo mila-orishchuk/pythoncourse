@@ -6,7 +6,8 @@ https://api.pushshift.io/reddit/comment/search/ .
 
 As a result, store all comments in chronological order in JSON and 
 dump it to a file. For this task use asyncio and aiohttp libraries
-for making requests to Reddit API.'''
+for making requests to Reddit API.
+'''
 
 
 from time import time
