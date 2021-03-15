@@ -1,0 +1,33 @@
+# Asyncio
+
+### Links:
+
+https://docs.python.org/3/library/asyncio.html  
+https://docs.python.org/3/library/asyncio-task.html    
+https://docs.python.org/3/library/asyncio-sync.html#asyncio-sync  
+https://pymotw.com/3/asyncio/index.html  
+https://realpython.com/python-concurrency/  
+https://realpython.com/async-io-python/  
+https://pythonprogramming.net/asyncio-basics-intermediate-python-tutorial/  
+
+### Homework
+
+[Task 1](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson35/task1.py)
+
+##### Practice asynchronous code
+
+Create a separate asynchronous code to calculate Fibonacci, factorial, squares and cubic for an input number. Schedule the execution of this code using asyncio.gather for a list of integers from 1 to 10. You need to get four lists of results from corresponding functions.
+Rewrite the code to use simple functions to get the same results but using a multiprocessing library. Time the execution of both realizations, explore the results, what realization is more effective, why did you get a result like this.
+
+[Task 2](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson35/task2.py)
+
+###### Requests using asyncio and aiohttp
+
+Download all comments from a subreddit of your choice using URL: https://api.pushshift.io/reddit/comment/search/ . 
+As a result, store all comments in chronological order in JSON and dump it to a file. For this task use asyncio and aiohttp libraries for making requests to Reddit API.
+
+[Task 3](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson35/task3.py)
+
+###### Echo server with asyncio
+
+Create a socket echo server which handles each connection using asyncio Tasks.
