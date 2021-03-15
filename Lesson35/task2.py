@@ -28,12 +28,12 @@ async def proceed_subredit(subreddit):
     async with aiohttp.TCPConnector(ssl=False, loop=loop) as connector:
         params = {'size': 5, 'subreddit': subreddit,
                   'fields': ('author', 'body', 'created_utc', 'subreddit')}
-        async with aiohttp.ClientSession(loop=loop, connector=connector).get(
-                URL, params=params) as response:
+        async with aiohttp.ClientSession(loop=loop, connector=connector).get(URL, params=params) as response:
             data = await response.text()
-            async with aiofiles.open(FILE, 'a') as file:
-                await file.write(data)
-                await file.write(',\n')
+            
+    async with aiofiles.open(FILE, 'a') as file:
+        await file.write(data)
+        await file.write(',\n')
 
 
 async def main():
