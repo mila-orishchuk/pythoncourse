@@ -21,13 +21,13 @@ Rewrite the code to use simple functions to get the same results but using a mul
 
 [Task 2](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson35/task2.py)
 
-###### Requests using asyncio and aiohttp
+##### Requests using asyncio and aiohttp
 
 Download all comments from a subreddit of your choice using URL: https://api.pushshift.io/reddit/comment/search/ . 
 As a result, store all comments in chronological order in JSON and dump it to a file. For this task use asyncio and aiohttp libraries for making requests to Reddit API.
 
 [Task 3](https://github.com/mila-orishchuk/pythoncourse/blob/master/Lesson35/task3.py)
 
-###### Echo server with asyncio
+##### Echo server with asyncio
 
 Create a socket echo server which handles each connection using asyncio Tasks.
