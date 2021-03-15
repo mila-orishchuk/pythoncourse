@@ -13,7 +13,7 @@ from time import time
 import os
 import asyncio
 import aiohttp
-import aiofiles
+import json
 import requests
 
 URL = 'https://api.pushshift.io/reddit/comment/search'
@@ -29,16 +29,15 @@ async def proceed_subredit(subreddit):
         params = {'size': 5, 'subreddit': subreddit,
                   'fields': ('author', 'body', 'created_utc', 'subreddit')}
         async with aiohttp.ClientSession(loop=loop, connector=connector).get(URL, params=params) as response:
-            data = await response.text()
-
-        async with aiofiles.open(FILE, 'a') as file:
-            await file.write(data)
-            await file.write(',\n')
+            data = await response.json()
+            return data
 
 
 async def main():
-    args = [proceed_subredit(subreddit) for subreddit in subreddits]
-    await asyncio.gather(*args, loop=loop)
+    corutines = [proceed_subredit(subreddit) for subreddit in subreddits]
+    res = await asyncio.gather(*corutines, loop=loop)
+    with open(FILE, 'w') as file:
+        json.dump(res, file)
 
 
 if __name__ == '__main__':
