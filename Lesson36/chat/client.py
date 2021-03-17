@@ -1,59 +1,52 @@
 import socket
-import select
-import sys
-import signal
+import threading
+
+SERVER = "127.0.0.1"
+PORT = 14000
+HEADER = 100
+FORMAT = "utf-8"
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((SERVER, PORT))  
 
-IP = "localhost"
-PORT = 42069
+def receive_msg():
+    while True:
+        username_header = client_socket.recv(HEADER)
+        username_length = int(username_header.decode(FORMAT))
+        username = client_socket.recv(username_length).decode(FORMAT)
 
-HEADER_LENGTH = 10
-
-client_socket.connect((IP, PORT))
-
-
-def sigint_handler(signum, frame):
-    print('\n Disconnecting from server')
-    sys.exit()
-
-
-signal.signal(signal.SIGINT, sigint_handler)
-
-my_username = input("Username: ")
-
-
-def send_username_to_server(my_username):
-    username = my_username.encode('utf-8')
-    username_header = f"{len(username):<{HEADER_LENGTH}}".encode('utf-8')
-    client_socket.send(username_header + username)
-
-
-send_username_to_server(my_username)
-
-sockets_list = [sys.stdin, client_socket]
-
-
-while True:
-    read_sockets, write_socket, error_socket = select.select(
-        sockets_list, [], [])
-
-    for socket in read_sockets:
-        if socket == client_socket:
-            message = socket.recv(2048)
-            if not len(message):
-                print("Connection closed by server")
-                sys.exit()
-
-            print(message.decode('utf-8'))
-
+        msg_header = client_socket.recv(HEADER)
+        if msg_header:
+            msg_length = int(msg_header.decode(FORMAT))
+            message = client_socket.recv(msg_length).decode(FORMAT)
+            print(f"{username} > {message}")
         else:
-            message = sys.stdin.readline()
-            message = message.encode('utf-8')
-            client_socket.send(message)
-            sys.stdout.write(str(my_username) + " > ")
-            sys.stdout.write(message.decode('utf-8'))
-            sys.stdout.flush()
+            print("Nothing received")
 
 
-client_socket.close()
+def send_msg():
+    while True:
+        user = str(input("Enter Username: "))
+        if user:
+            username = user.encode(FORMAT)
+            username_length = str(len(user)).encode(FORMAT)
+            username_length += b" " * (HEADER - len(username_length))
+            client_socket.send(username_length + username)
+            break
+        else:
+            continue
+
+    while True:
+        _input = str(input())
+        if _input:
+            message = _input.encode(FORMAT)
+            message_length = str(len(_input)).encode(FORMAT)
+            message_length += b" " * (HEADER - len(message_length))
+            client_socket.send(message_length + message)
+
+
+send_thread = threading.Thread(target = send_msg)
+send_thread.start()
+
+recv_thread = threading.Thread(target = receive_msg)
+recv_thread.start()
