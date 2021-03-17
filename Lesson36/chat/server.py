@@ -1,86 +1,85 @@
 import socket
 import threading
 
-SERVER = "127.0.0.1"
-PORT = 14000
-HEADER = 100
-FORMAT = "utf-8"
 
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind((SERVER, PORT))
-server_socket.listen()
+class ChatServer:
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.client_sockets = []
 
-#client_sockets_list = []
-clients = {}
-print("! Server Online !")
+    def run(self):
+        self.socket.bind((self.host, self.port))
+        self.socket.listen()
+        print(f'Chat Server started on {self.host}:{self.port}')
 
-
-def receive_msg(conn):
-    username_header = conn.recv(HEADER)
-    username_length = int(username_header.decode(FORMAT))
-    username = connection.recv(username_length).decode(FORMAT)
-
-    while True:
-        try:
-            msg_header = conn.recv(HEADER)
-            if msg_header:
-                msg_length = int(msg_header.decode(FORMAT))
-                message = conn.recv(msg_length).decode(FORMAT)
-
-                print(f"{username} > {message}")
-                clients[conn] = {username: message}
-
-                send_thread = threading.Thread(
-                    target=send_msg, args=(conn, username, message))
-                send_thread.start()
-
-        except ConnectionResetError:
+        while True:
             try:
-                del(clients[conn])
+                client_socket, addr = self.socket.accept()
+                self.client_sockets.append(client_socket)
 
-                send_msg(conn, username, "!DISCONNECTED!")
+                # send entering message to all clients
+                user = f'{addr[0]}:{addr[1]}'
+                message = f'> New user {user} entered ({self.get_online_user_status()})'
+                print(message)
+                for client in self.client_sockets:
+                    client.send(message.encode())
 
-            except RuntimeError:
-                print("A 'RuntimeError' occurred!")
-                continue
+                # make a thread for a new client and start it
+                chat_thread = threading.Thread(target=self.run_chat_thread, args=(client_socket, addr), daemon=True)
+                chat_thread.start()
+            except:
+                break
 
-            print(f"{username} DISCONNECTED!")
-            break
+        # close sockets
+        self.socket.close()
+        for client_socket in self.client_sockets:
+            client_socket.close()
+        print('\nexit')
 
-
-def send_msg(socket, user_name, message):
-    if message == "!DISCONNECTED!":
-        for client in clients:
-            username2 = user_name.encode(FORMAT)
-            user2_length = str(len(user_name)).encode(FORMAT)
-            user2_length += b" " * (HEADER - len(user2_length))
-
-            msg2 = message.encode(FORMAT)
-            message2_header = str(len(message)).encode(FORMAT)
-            message2_header += b" " * (HEADER - len(message2_header))
-
-            client.send(user2_length + username2 + message2_header + msg2)
-
-    else:
-        for client in clients:
+    def run_chat_thread(self, connected_socket, addr):
+        user = f'{addr[0]}:{addr[1]}'
+        while True:
             try:
-                if client != socket:
-                    username = user_name.encode(FORMAT)
-                    user_length = str(len(user_name)).encode(FORMAT)
-                    user_length += b" " * (HEADER - len(user_length))
+                data = connected_socket.recv(1024)
 
-                    msg = message.encode(FORMAT)
-                    message_header = str(len(message)).encode(FORMAT)
-                    message_header += b" " * (HEADER - len(message_header))
+                if not data:
+                    break
 
-                    client.send(user_length + username + message_header + msg)
+                # print received message
+                message = f'[{user}] {data.decode()}'
+                print(message)
 
-            except ConnectionResetError:
-                print("!CLIENT DISCONNECTED!")
+                # send the message to other clients
+                for client_socket in self.client_sockets:
+                    if client_socket != connected_socket:
+                        client_socket.send(message.encode())
+            except:
+                break
+
+        # when socket closed
+        # print left message and send it to other clients
+        self.client_sockets.remove(connected_socket)
+        connected_socket.close()
+        message = f'< The user {user} left ({self.get_online_user_status()})'
+        print(message)
+        for client_socket in self.client_sockets:
+            client_socket.send(message.encode())
+
+    def get_online_user_status(self):
+        num_users = len(self.client_sockets)
+        return f'{num_users} user{"s" if num_users > 1 else ""} online'
 
 
-while True:
-    connection, address = server_socket.accept()
-    recv_thread = threading.Thread(target=receive_msg, args=(connection, ))
-    recv_thread.start()
-    print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
+def main():
+    host = 'localhost'
+    port = 9645
+
+    chat_server = ChatServer(host, port)
+    chat_server.run()
+
+
+if __name__ == '__main__':
+    main()
