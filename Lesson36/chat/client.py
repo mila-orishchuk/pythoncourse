@@ -1,111 +1,59 @@
-'''
-Echo server with threading
-
-Create a socket echo server that handles each
-connection using the multiprocessing library.
-'''
-import sys
 import socket
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QApplication
-from ui_client import Ui_Client
-from ui_connect import Ui_Connect
-import time
+import select
+import sys
+import signal
 
-class ReceiveThread(QtCore.QThread):
-    signal = QtCore.pyqtSignal(str)
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    def __init__(self, client_socket):
-        super(ReceiveThread, self).__init__()
-        self.client_socket = client_socket
+IP = "localhost"
+PORT = 42069
 
-    def run(self):
-        while True:
-            self.receive_message()
+HEADER_LENGTH = 10
 
-    def receive_message(self):
-        message = self.client_socket.recv(1024)
-        message = message.decode()
-
-        self.signal.emit(message)
+client_socket.connect((IP, PORT))
 
 
-class ClientWindow(QtWidgets.QMainWindow):
-
-    host = 'localhost'
-    port = 8888
-
-    def __init__(self):
-        super().__init__()
-        self.ui_connect = Ui_Connect()
-        self.ui_connect.setupUi(self)
-        self.show()
-
-        self.ui_connect.pushButton.clicked.connect(self.btn_connect_clicked)
-
-        self.tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    def btn_connect_clicked(self):
-
-        user_name = self.ui_connect.nameTextEdit.toPlainText()
-
-        if len(user_name) < 1:
-            return
-
-        if not self.connect(self.host, self.port, user_name):
-            return
-
-        self.recv_thread = ReceiveThread(self.tcp_client)
-        self.recv_thread.signal.connect(self.show_message)
-        self.recv_thread.start()
-        print("[INFO] recv thread started")
-
-        self.client_chat = Ui_Client()
-        self.client_chat.setupUi(self)
-        self.client_chat.pushButton_send.clicked.connect(self.send_message)
-        self.show()
-
-    def connect(self, host, port, user_name):
-        try:
-            self.tcp_client.connect((host, port))
-            self.tcp_client.send(user_name.encode())
-
-            print("[INFO] Connected to server")
-
-            return True
-        except Exception as e:
-            error = f"Unable to connect to server \n'{str(e)}'"
-            print("[INFO]", error)
-            self.show_error("Connection Error", error)
-
-            return False
-
-    def show_message(self, message):
-        self.client_chat.textBrowser.append(message)
-
-    def send_message(self):
-        message = self.client_chat.textEdit.toPlainText()     
-        print("sent: " + message)
-
-        try:
-            self.tcp_client.send(message.encode())
-        except Exception as e:
-            error = f"Unable to send message '{str(e)}'"
-            print("[INFO]", error)
-            self.show_error("Server Error", error)
-            
-        self.client_chat.textEdit.clear()
-
-    def show_error(self, error_type, message):
-        error_dialog = QtWidgets.QMessageBox()
-        error_dialog.setText(message)
-        error_dialog.setWindowTitle(error_type)
-        error_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
-        error_dialog.exec_()
+def sigint_handler(signum, frame):
+    print('\n Disconnecting from server')
+    sys.exit()
 
 
-if __name__ == "__main__":
+signal.signal(signal.SIGINT, sigint_handler)
 
-    app = QApplication(sys.argv)
-    client = ClientWindow()
-    sys.exit(app.exec_())
+my_username = input("Username: ")
+
+
+def send_username_to_server(my_username):
+    username = my_username.encode('utf-8')
+    username_header = f"{len(username):<{HEADER_LENGTH}}".encode('utf-8')
+    client_socket.send(username_header + username)
+
+
+send_username_to_server(my_username)
+
+sockets_list = [sys.stdin, client_socket]
+
+
+while True:
+    read_sockets, write_socket, error_socket = select.select(
+        sockets_list, [], [])
+
+    for socket in read_sockets:
+        if socket == client_socket:
+            message = socket.recv(2048)
+            if not len(message):
+                print("Connection closed by server")
+                sys.exit()
+
+            print(message.decode('utf-8'))
+
+        else:
+            message = sys.stdin.readline()
+            message = message.encode('utf-8')
+            client_socket.send(message)
+            sys.stdout.write(str(my_username) + " > ")
+            sys.stdout.write(message.decode('utf-8'))
+            sys.stdout.flush()
+
+
+client_socket.close()
