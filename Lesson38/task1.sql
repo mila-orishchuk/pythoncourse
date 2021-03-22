@@ -36,7 +36,8 @@ SELECT em.first_name 'first name of employee', mng.first_name 'first name of man
 FROM employees 'em'
 LEFT JOIN employees 'mng' ON em.manager_id = mng.employee_id
 
--- write a query in SQL to display the job title, full name (first and last name ) of the employee, and the difference between the maximum salary for the job and the salary of the employee
+-- write a query in SQL to display the job title, full name (first and last name ) of the employee, and the difference between the maximum salary
+-- for the job and the salary of the employee
 SELECT j.job_title 'Job Title', em.first_name ||' '|| em.last_name 'Full Name', j.max_salary-em.salary 'Difference'
 FROM employees 'em'
 INNER JOIN jobs 'j' ON em.job_id = j.job_id;
